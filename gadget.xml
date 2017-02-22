@@ -35,7 +35,7 @@
 						button.style.visibility = 'visible';
 						button.addEventListener('click', function() {
 							var participants = gapi.hangout.getParticipants();
-							alert(participants.map(function(val) {return val.person.displayName;}).join(', '););
+							alert(participants.map(function(val) {return val.person.displayName;}).join(', '));
 						}, false);
 					}
 				});
