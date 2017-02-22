@@ -29,13 +29,13 @@
 			function initialize() {
 				var parentWindow = window.parent;
 				var hangout = gapi.hangout;
-				var participants = gapi.hangout.getParticipants();
 				hangout.onApiReady.add(function(eventObj) {
 					if (eventObj.isApiReady) {
 						var button = document.getElementById('button');
 						button.style.visibility = 'visible';
 						button.addEventListener('click', function() {
-							alert(JSON.stringify(participants));
+							var participants = gapi.hangout.getParticipants();
+							alert(participants.map(function(val) {return val.person.displayName;}).join(', '););
 						}, false);
 					}
 				});
