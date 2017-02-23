@@ -20,22 +20,48 @@
 <Content type="html">
 <![CDATA[
 <html>
-	<style type="text/css"></style>
+	<style type="text/css">
+		body {
+			background-color: rgba(230, 236, 180, 0.8);
+		}
+		h1, h2, h3, h4, h5 {
+			margin: 0;
+			padding: 0;
+		}
+		#content {
+			display:block;
+			margin: 6px;
+		}
+
+		#content.is-hidden {
+			display: none;
+		}
+	</style>
 	<body>
 		<script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
-		<h3>Sample Hangout App</h3>
-		<div id="button" style="visibility:hidden;">ボタン</div>
+		<section id="content" class="is-hidden">
+			<h3>Sample Hangout App</h3>
+			<div id="button">ボタン</div>
+			<div id="dataButton">データ</div>
+		</section>
 		<script>
 			function initialize() {
 				var parentWindow = window.parent;
 				var hangout = gapi.hangout;
 				hangout.onApiReady.add(function(eventObj) {
 					if (eventObj.isApiReady) {
+						var content = document.getElementById('content');
 						var button = document.getElementById('button');
-						button.style.visibility = 'visible';
+						var dataButton = document.getElementById('dataButton');
+						content.classList.remove('is-hidden');
 						button.addEventListener('click', function() {
 							var participants = gapi.hangout.getParticipants();
 							alert(participants.map(function(val) {return val.person.displayName;}).join(', '));
+						}, false);
+						dataButton.addEventListener('click', function() {
+							console.log('↓データ↓');
+							console.log(gapi.hangout, gapi.hangout.data);
+							console.log('↑データ↑');
 						}, false);
 					}
 				});
@@ -44,6 +70,7 @@
 			gadgets.util.registerOnLoadHandler(initialize);
 		</script>
 	</body>
+</html>
 ]]>
 </Content>
 </Module>
